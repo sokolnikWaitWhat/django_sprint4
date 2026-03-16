@@ -23,11 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(a5k@cfk-58yl+a5_-$auht&0ict)0g^bh$^hf&03gs)dllqmp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1'
+]
 
-
+CSRF_FAILURE_VIEW = 'pages.views.csrf_failure'
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pages.apps.PagesConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'django_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +56,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'blogicum.urls'
+
+LOGIN_REDIRECT_URL = 'blog:index'
 
 TEMPLATES_DIR = BASE_DIR / 'templates'
 
