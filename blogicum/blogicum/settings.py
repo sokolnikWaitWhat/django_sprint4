@@ -30,6 +30,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+MEDIA_ROOT = BASE_DIR / 'media'
+
 CSRF_FAILURE_VIEW = 'pages.views.csrf_failure'
 # Application definition
 

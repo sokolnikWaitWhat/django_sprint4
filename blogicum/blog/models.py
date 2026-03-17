@@ -59,10 +59,26 @@ class Post(BaseModel):
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True,
         verbose_name='Категория')
+    comment_count = models.IntegerField(
+        default=0, verbose_name='Число комментариев')
 
     class Meta:
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
+
+
+class Comment(BaseModel):
+    text = models.TextField('Текст комментария')
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+    )
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('created_at',)
+        verbose_name = 'комментарий'
+        verbose_name_plural = 'Комментарии'
 
 
 class UserForm(forms.ModelForm):
@@ -74,7 +90,13 @@ class UserForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ('created_at',)
+        exclude = ('created_at', 'author', 'comments_count')
         widgets = {
             'pub_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ('created_at', 'author', 'post')
