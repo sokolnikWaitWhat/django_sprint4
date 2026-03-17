@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(a5k@cfk-58yl+a5_-$auht&0ict)0g^bh$^hf&03gs)dllqmp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -79,6 +79,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogicum.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

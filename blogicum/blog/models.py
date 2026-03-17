@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django import forms
 
 User = get_user_model()
 
@@ -54,6 +55,7 @@ class Post(BaseModel):
     location = models.ForeignKey(
         Location, on_delete=models.SET_NULL, null=True,
         blank=True, verbose_name='Местоположение')
+    image = models.ImageField('Фото', blank=True)
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True,
         verbose_name='Категория')
@@ -61,3 +63,18 @@ class Post(BaseModel):
     class Meta:
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'first_name', 'last_name', 'email')
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ('created_at',)
+        widgets = {
+            'pub_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
+        }
