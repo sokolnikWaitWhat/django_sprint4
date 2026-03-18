@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include, reverse_lazy
-from django.contrib.auth.forms import UserCreationForm
+from .models import NewUserForm
 from django.views.generic.edit import CreateView
 from django.conf.urls.static import static
 
@@ -29,7 +29,7 @@ urlpatterns = [
         'auth/registration/',
         CreateView.as_view(
             template_name='registration/registration_form.html',
-            form_class=UserCreationForm,
+            form_class=NewUserForm,
             success_url=reverse_lazy('blog:index'),
         ),
         name='registration',

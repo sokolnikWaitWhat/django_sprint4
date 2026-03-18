@@ -96,7 +96,7 @@ class UserForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ('created_at', 'author', 'comments_count')
+        exclude = ('created_at', 'author', 'comment_count')
         widgets = {
             'pub_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }
